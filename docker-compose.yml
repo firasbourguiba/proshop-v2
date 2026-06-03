@@ -44,15 +44,15 @@ services:
     networks:
       - proshop-network
   prometheus:
-    image: prom/prometheus:latest
-    container_name: proshop-prometheus
-    restart: always
-    ports:
-      - '9090:9090'
-    volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - proshop-network
+      build:
+        context: ./monitoring
+        dockerfile: Dockerfile
+      container_name: proshop-prometheus
+      restart: always
+      ports:
+        - '9090:9090'
+      networks:
+        - proshop-network
 
   grafana:
     image: grafana/grafana:latest
