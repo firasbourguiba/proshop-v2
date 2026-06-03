@@ -34,6 +34,13 @@ pipeline {
             }
         }
 
+        stage('Security Scan') {
+            steps {
+                echo '===== Scan de securite ====='
+                sh 'docker run --rm -v /workspace/proshop-v2:/app aquasec/trivy:latest fs /app --severity HIGH,CRITICAL --exit-code 0'
+            }
+        }
+        
         stage('Deploy') {
             steps {
                 echo '===== Deploiement ====='
